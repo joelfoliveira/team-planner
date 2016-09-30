@@ -1,0 +1,157 @@
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <a class="navbar-brand pull-left title" href="#">Team Player</a>
+
+        <button id="btAddPlayer" type="button" class="btn btn-success pull-right" ng-click="openPlayerDetails();" ng-show="isAdmin">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span>&nbsp;Add Player</span>
+        </button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="panel panel-default active-players">
+        <div class="panel-heading">Players</div>
+        <div class="panel-body">
+            <ul class="player-list">
+                <li ng-repeat="player in players | filter: {archived : false} | orderBy:isAdmin ? '-score' : 'name'" class="item clearfix">
+                    <span class="name pull-left">{{player.name}}</span>
+                    <span class="name pull-left" ng-show="isAdmin">&nbsp;{{ getPlayerStatsInfoFormatted(player); }}</span>
+                    <div class="bt-group pull-right" ng-show="isAdmin">
+                        <button type="button" class="btn btn-default" ng-click="openPlayerDetails(player);"><i class="fa fa-pencil" aria-hidden="true" title="Edit"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="archivePlayer(player);"><i class="fa fa-arrow-down" aria-hidden="true" title="Unarchive"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="deletePlayer(player);"><i class="fa fa-trash" aria-hidden="true" title="Delete"></i></button>
+                    </div>
+                </li>
+            </ul>
+            <div class="text-center">
+                <button type="button" class="btn btn-default bt-generate" ng-click="openTeamsModal(players);">Generate Teams</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default other-players">
+        <div class="panel-heading">Archived Players</div>
+        <div class="panel-body">
+            <ul class="player-list">
+                <li ng-repeat="player in players | filter: {archived : true} | orderBy:isAdmin ? '-score' : 'name'" class="item clearfix">
+                    <span class="name pull-left">{{player.name}}</span>
+                    <span class="name pull-left" ng-show="isAdmin">&nbsp;{{ getPlayerStatsInfoFormatted(player); }}</span>
+                    <div class="bt-group pull-right" ng-show="isAdmin">
+                        <button type="button" class="btn btn-default" ng-click="openPlayerDetails(player);"><i class="fa fa-pencil" aria-hidden="true" title="Edit"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="unArchivePlayer(player);"><i class="fa fa-arrow-up" aria-hidden="true" title="Unarchive"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="deletePlayer(player);"><i class="fa fa-trash" aria-hidden="true" title="Delete"></i></button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Player Details Modal -->
+<div  id="playerDetailsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Player Details">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closePlayerDetails();"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="playerDetailsModalLabel">{{playerDetailsModalAdd == true ? 'Add Player' : 'Edit Player'}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="player-details-form form-horizontal">
+                    <div class="form-group">
+                        <label for="pdInputName" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text"  id="pdInputName" class="form-control regular-width" value="{{ tempPlayer.name }}" ng-model="tempPlayer.name"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Score</label>
+                        <div class="col-sm-8">
+                            <div class="btn-group" role="score-group">
+                                <button type="button"
+                                        class="btn btn-default {{tempPlayer.score == null ? 'active' : ''}}"
+                                        ng-click="tempPlayer.score = null;">?</button>
+                                <button type="button"
+                                        class="btn btn-default text-capitalize {{tempPlayer.score == i ? 'active' : ''}}"
+                                        ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+                                        ng-click="tempPlayer.score = i;">{{ i }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Position</label>
+                        <div class="col-sm-10">
+                            <div class="btn-group" role="position-group">
+                                <button type="button"
+                                        class="btn btn-default {{tempPlayer.position == null ? 'active' : ''}}"
+                                        ng-click="tempPlayer.position = null;">?</button>
+                                <button type="button"
+                                        class="btn btn-default text-capitalize {{tempPlayer.position == i ? 'active' : ''}}"
+                                        ng-repeat="i in ['defensive','offensive']"
+                                        ng-click="tempPlayer.position = i">{{ i }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Physical Condition</label>
+                        <div class="col-sm-10">
+                            <div class="btn-group" role="pc-group">
+                                <button type="button"
+                                        class="btn btn-default {{tempPlayer.physicalCondition == null ? 'active' : ''}}"
+                                        ng-click="tempPlayer.physicalCondition = null;">?</button>
+                                <button type="button"
+                                        class="btn btn-default text-capitalize {{tempPlayer.physicalCondition == i ? 'active' : ''}}"
+                                        ng-repeat="i in ['bad','medium','good']"
+                                        ng-click="tempPlayer.physicalCondition = i;">{{ i }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closePlayerDetails();">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="savePlayerDetails();">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Team Players Modal -->
+<div  id="teamsModal" class="teams-list-modal modal fade" tabindex="-1" role="dialog" aria-labelledby="Team Players">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeTeamsModal();"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Teams</h4>
+            </div>
+            <div class="modal-body">
+                <div class="teams-container" ng-show="teams">
+                    <div class="team">
+                        <div class="team-name">{{ teams[0].name }}</div>
+                        <ul class="list">
+                            <li ng-repeat="player in teams[0].players | orderBy:isAdmin ? '-score' : 'name'" class="item clearfix">
+                                <span class="player-name">{{ player.name }}</span>
+                                <span class="stats" ng-show="isAdmin">{{ getPlayerStatsInfoFormatted(player); }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="divider"><span class="label">VS</span></div>
+                    <div class="team">
+                        <div class="team-name">{{ teams[1].name }}</div>
+                        <ul class="list">
+                            <li ng-repeat="player in teams[1].players | orderBy:isAdmin ? '-score' : 'name'" class="item clearfix">
+                                <span class="player-name">{{ player.name }}</span>
+                                <span class="stats" ng-show="isAdmin">{{ getPlayerStatsInfoFormatted(player); }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <p class="message"ng-show="teamsModalMessage">{{ teamsModalMessage }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeTeamsModal();">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

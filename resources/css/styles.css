@@ -1,0 +1,164 @@
+
+
+button:focus {outline:0 !important;}
+
+.loader{
+    display: none;
+}
+
+body.loading .loader{
+    display: block;
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    background-color: #f5f5f5;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.loader .spinner {
+    box-sizing: border-box;
+    margin-top: 100px;
+    margin-left: -30px;
+    height: 60px;
+    width: 60px;
+    border: 0px solid #5cb85c;
+    border-radius: 50%;
+    box-shadow: 0 -20px 0 24px #5cb85c inset;
+    animation: rotate 1s infinite linear;
+    position: relative;
+    left: 50%;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.panel-heading a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+    color: grey;
+}
+.panel-heading a.collapsed:after {
+    content:"\e080";
+}
+
+.container{
+    max-width:450px;
+    margin-top: 40px;
+}
+
+.navbar .btn{
+    margin: 8px 0px;
+}
+
+.panel-heading{
+    font-weight: bold;
+}
+
+.player-list{
+    padding: 0;
+    list-style: none;
+}
+
+.player-list .item{
+    padding: 10px 0px;
+    display: block;
+    border-bottom: 1px solid #ddd;
+}
+
+.player-list .item .name{
+    line-height: 26px;
+}
+
+.player-list .item .btn{
+    padding: 2px 5px;
+    margin-left: 5px;
+}
+
+.bt-generate{
+    margin-top: 5px;
+}
+
+.player-details-form .regular-width{
+    width: 327px;
+}
+
+.player-details-form .btn-group .btn{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.other-players .panel-body{
+    padding: 5px 10px;
+}
+
+.other-players .player-list .item:last-child{
+    border: 0;
+    padding-bottom: 0px;
+}
+
+.teams-list-modal .modal-body .message{
+    margin-top: 10px;
+}
+
+.teams-list-modal .teams-container{
+    padding: 10px 0px 10px;
+}
+
+.teams-list-modal .teams-container .team{
+    width: 40%;
+}
+
+.teams-list-modal .teams-container .team:nth-child(1){
+    float: left;
+    text-align: right;
+}
+
+.teams-list-modal .teams-container .team:nth-child(3){
+    float: right;
+    text-align: left;
+
+}
+
+.teams-list-modal .teams-container .team .team-name{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.teams-list-modal .teams-container .team .list{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.teams-list-modal .teams-container .team .list .item{
+    padding: 3px 0px;
+}
+
+.teams-list-modal .teams-container .divider{
+    text-align: center;
+    width: 20%;
+    float: left;
+}
+
+.teams-list-modal .teams-container .divider .label{
+    font-weight: bold;
+    font-size: 20px;
+    color: #333;
+    margin-top: 2px;
+    display: block;
+}
+
+.teams-list-modal .teams-container .team .list .item .stats{
+    display: block;
+}
