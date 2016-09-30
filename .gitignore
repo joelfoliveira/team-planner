@@ -1,2 +1,6 @@
+
+# Ignore IDE files
+.idea
+
 # Ignore settings file
 resources/app/appSettings.js
