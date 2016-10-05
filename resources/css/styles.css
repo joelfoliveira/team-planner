@@ -133,6 +133,12 @@ body.loading .loader{
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 5px;
+    line-height: 18px;
+}
+
+.teams-list-modal .teams-container .team .team-name .team-stats{
+    font-size: 12px;
+    font-weight: normal;
 }
 
 .teams-list-modal .teams-container .team .list{
@@ -162,3 +168,4 @@ body.loading .loader{
 .teams-list-modal .teams-container .team .list .item .stats{
     display: block;
 }
+

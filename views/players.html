@@ -127,7 +127,7 @@
             <div class="modal-body">
                 <div class="teams-container" ng-show="teams">
                     <div class="team">
-                        <div class="team-name">{{ teams[0].name }}</div>
+                        <div class="team-name">{{ teams[0].name }}<br/><span class="team-stats">({{ teams[0].stats }})</span></div>
                         <ul class="list">
                             <li ng-repeat="player in teams[0].players | orderBy:isAdmin ? '-score' : 'name'" class="item clearfix">
                                 <span class="player-name">{{ player.name }}</span>
@@ -137,7 +137,7 @@
                     </div>
                     <div class="divider"><span class="label">VS</span></div>
                     <div class="team">
-                        <div class="team-name">{{ teams[1].name }}</div>
+                        <div class="team-name">{{ teams[1].name }}<br/><span class="team-stats">({{ teams[1].stats }})</span></div>
                         <ul class="list">
                             <li ng-repeat="player in teams[1].players | orderBy:isAdmin ? '-score' : 'name'" class="item clearfix">
                                 <span class="player-name">{{ player.name }}</span>
