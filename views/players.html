@@ -17,11 +17,11 @@
             <ul class="player-list">
                 <li ng-repeat="player in players | filter: {archived : false} | orderBy:isAdmin ? '-score' : 'name'" class="item clearfix">
                     <span class="name pull-left">{{player.name}}</span>
-                    <span class="name pull-left" ng-show="isAdmin">&nbsp;{{ getPlayerStatsInfoFormatted(player); }}</span>
-                    <div class="bt-group pull-right" ng-show="isAdmin">
-                        <button type="button" class="btn btn-default" ng-click="openPlayerDetails(player);"><i class="fa fa-pencil" aria-hidden="true" title="Edit"></i></button>
+                    <span class="name pull-left">&nbsp;{{ getPlayerStatsInfoFormatted(player); }}</span>
+                    <div class="bt-group pull-right">
+                        <button type="button" class="btn btn-default" ng-click="openPlayerDetails(player);" ng-show="isAdmin"><i class="fa fa-pencil" aria-hidden="true" title="Edit"></i></button>
                         <button type="button" class="btn btn-default" ng-click="archivePlayer(player);"><i class="fa fa-arrow-down" aria-hidden="true" title="Unarchive"></i></button>
-                        <button type="button" class="btn btn-default" ng-click="deletePlayer(player);"><i class="fa fa-trash" aria-hidden="true" title="Delete"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="deletePlayer(player);" ng-show="isAdmin"><i class="fa fa-trash" aria-hidden="true" title="Delete"></i></button>
                     </div>
                 </li>
             </ul>
@@ -36,11 +36,11 @@
             <ul class="player-list">
                 <li ng-repeat="player in players | filter: {archived : true} | orderBy:isAdmin ? '-score' : 'name'" class="item clearfix">
                     <span class="name pull-left">{{player.name}}</span>
-                    <span class="name pull-left" ng-show="isAdmin">&nbsp;{{ getPlayerStatsInfoFormatted(player); }}</span>
-                    <div class="bt-group pull-right" ng-show="isAdmin">
-                        <button type="button" class="btn btn-default" ng-click="openPlayerDetails(player);"><i class="fa fa-pencil" aria-hidden="true" title="Edit"></i></button>
+                    <span class="name pull-left">&nbsp;{{ getPlayerStatsInfoFormatted(player); }}</span>
+                    <div class="bt-group pull-right">
+                        <button type="button" class="btn btn-default" ng-click="openPlayerDetails(player);" ng-show="isAdmin"><i class="fa fa-pencil" aria-hidden="true" title="Edit"></i></button>
                         <button type="button" class="btn btn-default" ng-click="unArchivePlayer(player);"><i class="fa fa-arrow-up" aria-hidden="true" title="Unarchive"></i></button>
-                        <button type="button" class="btn btn-default" ng-click="deletePlayer(player);"><i class="fa fa-trash" aria-hidden="true" title="Delete"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="deletePlayer(player);" ng-show="isAdmin"><i class="fa fa-trash" aria-hidden="true" title="Delete"></i></button>
                     </div>
                 </li>
             </ul>
@@ -131,7 +131,7 @@
                         <ul class="list">
                             <li ng-repeat="player in teams[0].players | orderBy:isAdmin ? '-score' : 'name'" class="item clearfix">
                                 <span class="player-name">{{ player.name }}</span>
-                                <span class="stats" ng-show="isAdmin">{{ getPlayerStatsInfoFormatted(player); }}</span>
+                                <span class="stats">{{ getPlayerStatsInfoFormatted(player); }}</span>
                             </li>
                         </ul>
                     </div>
@@ -141,7 +141,7 @@
                         <ul class="list">
                             <li ng-repeat="player in teams[1].players | orderBy:isAdmin ? '-score' : 'name'" class="item clearfix">
                                 <span class="player-name">{{ player.name }}</span>
-                                <span class="stats" ng-show="isAdmin">{{ getPlayerStatsInfoFormatted(player); }}</span>
+                                <span class="stats">{{ getPlayerStatsInfoFormatted(player); }}</span>
                             </li>
                         </ul>
                     </div>
